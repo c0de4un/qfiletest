@@ -46,6 +46,9 @@ set(CMAKE_AUTORCC ON)
 # Prefix to headers & sources dir.
 set ( PROJECT_SRC_DIR_PREFIX "src/cxx/" )
 
+# Prefix to qml dir.
+set ( PROJECT_QML_DIR_PREFIX "src/qml/" )
+
 # =================================================================================
 # QT Libraries/Modules
 # =================================================================================
@@ -63,15 +66,14 @@ set ( PROJECT_SRC_DIR_PREFIX "src/cxx/" )
 #    endif()
 #endif()
 
-find_package(Qt5 COMPONENTS Core Quick Qml QuickControls2 Widgets LinguistTools Xml REQUIRED)
+find_package(Qt5 COMPONENTS Core Quick LinguistTools Qml QuickControls2 Xml REQUIRED)
 
 # =================================================================================
 # HEADERS
 # =================================================================================
 
 set ( QFILETEST_HEADERS
-	"${PROJECT_SRC_DIR_PREFIX}MainWindow.hpp"
-        "mainwindow.ui" )
+	"${PROJECT_SRC_DIR_PREFIX}main.hpp" )
 
 # =================================================================================
 # SOURCES
@@ -79,7 +81,7 @@ set ( QFILETEST_HEADERS
 
 set ( QFILETEST_SOURCES
 	"${PROJECT_SRC_DIR_PREFIX}main.cpp"
-	"${PROJECT_SRC_DIR_PREFIX}MainWindow.cpp")
+	"${PROJECT_QML_DIR_PREFIX}qml.qrc")
 	
 # =================================================================================
 # RESOURCES
@@ -110,26 +112,11 @@ else ( ANDROID ) # Desktop (Mac, Windows, Linux)
 	
 endif ( ANDROID )
 
-#if(ANDROID)
-#  add_library(qfiletest SHARED
-#    main.cpp
-#    mainwindow.cpp
-#    mainwindow.hpp
-#    mainwindow.ui
-#    ${TS_FILES}
-#  )
-#else()
-#  add_executable(qfiletest
-#    main.cpp
-#    mainwindow.cpp
-#    mainwindow.hpp
-#    mainwindow.ui
-#    ${TS_FILES}
-#  )
-#endif()
-
 # Link
-target_link_libraries( qfiletest PRIVATE Qt5::Core Qt5::Quick Qt5::QuickControls2 Qt5::Qml Qt5::Widgets Qt5::Xml )
-
+target_link_libraries(qfiletest PRIVATE Qt5::Core Qt5::Qml Qt5::Quick Qt5::QuickControls2 Qt5::Xml)
+  
 # Translation
 qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+
+target_compile_definitions( qfiletest
+	PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG> )
