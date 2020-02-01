@@ -66,7 +66,7 @@ set ( PROJECT_QML_DIR_PREFIX "src/qml/" )
 #    endif()
 #endif()
 
-find_package(Qt5 COMPONENTS Core Quick LinguistTools Qml QuickControls2 Xml REQUIRED)
+find_package(Qt5 COMPONENTS Core Quick LinguistTools Qml QuickControls2 REQUIRED)
 
 # =================================================================================
 # HEADERS
@@ -113,10 +113,10 @@ else ( ANDROID ) # Desktop (Mac, Windows, Linux)
 endif ( ANDROID )
 
 # Link
-target_link_libraries(qfiletest PRIVATE Qt5::Core Qt5::Qml Qt5::Quick Qt5::QuickControls2 Qt5::Xml)
+target_link_libraries(qfiletest PRIVATE Qt5::Core Qt5::Qml Qt5::Quick Qt5::QuickControls2)
   
 # Translation
 qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 
 target_compile_definitions( qfiletest
-	PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG> )
+        PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:Release>>:QT_QML_RELEASE> )
