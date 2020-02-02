@@ -73,15 +73,41 @@ find_package(Qt5 COMPONENTS Core Quick LinguistTools Qml QuickControls2 REQUIRED
 # =================================================================================
 
 set ( QFILETEST_HEADERS
-	"${PROJECT_SRC_DIR_PREFIX}main.hpp" )
+    # CORE.IO
+    "${PROJECT_SRC_DIR_PREFIX}qft/core/utils/io/ICheckData.hxx"
+    "${PROJECT_SRC_DIR_PREFIX}qft/core/utils/io/IStream.hxx"
+    "${PROJECT_SRC_DIR_PREFIX}qft/core/utils/io/IFile.hxx"
+    "${PROJECT_SRC_DIR_PREFIX}qft/core/utils/io/InputStream.hxx"
+    "${PROJECT_SRC_DIR_PREFIX}qft/core/utils/io/DataCheckBase.hpp"
+    "${PROJECT_SRC_DIR_PREFIX}qft/core/utils/io/FileBase.hpp"
+    "${PROJECT_SRC_DIR_PREFIX}qft/core/utils/io/IDataCheckFactory.hxx"
+    "${PROJECT_SRC_DIR_PREFIX}qft/core/utils/io/DataCheckFactory.hpp"
+    # CORE.Engine
+    "${PROJECT_SRC_DIR_PREFIX}qft/core/engine/IQFTEngine.hxx"
+    "${PROJECT_SRC_DIR_PREFIX}qft/core/engine/QFTEngine.hpp"
+    # CRC
+    "${PROJECT_SRC_DIR_PREFIX}qft/crc/CRCDataCheck.hpp"
+    # QT
+    "${PROJECT_SRC_DIR_PREFIX}qft/qt/utils/io/FileHandler.hpp"
+    "${PROJECT_SRC_DIR_PREFIX}main.hpp" )
 
 # =================================================================================
 # SOURCES
 # =================================================================================
 
 set ( QFILETEST_SOURCES
-	"${PROJECT_SRC_DIR_PREFIX}main.cpp"
-	"${PROJECT_QML_DIR_PREFIX}qml.qrc")
+    # CORE.IO
+    "${PROJECT_SRC_DIR_PREFIX}qft/core/utils/io/DataCheckBase.cpp"
+    "${PROJECT_SRC_DIR_PREFIX}qft/core/utils/io/FileBase.cpp"
+    "${PROJECT_SRC_DIR_PREFIX}qft/core/utils/io/DataCheckFactory.cpp"
+    # CORE.Engine
+    "${PROJECT_SRC_DIR_PREFIX}qft/core/engine/QFTEngine.cpp"
+    # CRC
+    "${PROJECT_SRC_DIR_PREFIX}qft/crc/CRCDataCheck.cpp"
+    # QT
+    "${PROJECT_SRC_DIR_PREFIX}qft/qt/utils/io/FileHandler.cpp"
+    "${PROJECT_SRC_DIR_PREFIX}main.cpp"
+    "${PROJECT_QML_DIR_PREFIX}qml.qrc")
 	
 # =================================================================================
 # RESOURCES
